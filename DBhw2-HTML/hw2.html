@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>公 路 橋梁 耐 震 能 力 初 步 評 估 表</title>
+    
+</head>
+<body>
+    <h1><center>表1  公 路 橋梁 耐 震 能 力 初 步 評 估 表 －（Ａ）落 橋 評 估</center></h1>
+</body>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+    <div style="font-size:20px; word-spacing: 10px;">
+        <label>橋樑名稱: <input style="font-size:16px;" type="text" id="Name" name="Name" ng-model="Name"></label>
+        <label>&nbsp編號: <input style="font-size:16px;" type="text" id="Code" name="Code" ng-model="Code"></label>
+        <label>&nbsp振動單位: P<input style="font-size:16px;" type="text" id="Vibration_1" name="Vibration_1" ng-model="Vibration_1">
+            ~P<input style="font-size:16px;" type="text" id="Vibration_2" name="Vibration_2" ng-model="Vibration_2">
+        </label>
+    </div>
+    <div style="font-size:16px;">
+        <label>設計年度 : </label>
+        <label><input type="radio" id="annual" name="annual" ng-model="annual" value="1">民國49年以前<span class="checkmark"></span></label>
+        <label><input type="radio" id="annual" name="annual" value="2">民國49~76年<span class="checkmark"></span></label>
+        <label><input type="radio" id="annual" name="annual" value="3">民國76~84年<span class="checkmark"></span></label>
+        <label><input type="radio" id="annual" name="annual" value="4">民國84~89年<span class="checkmark"></span></label>
+        <label><input type="radio" id="annual" name="annual" value="5">民國89年以後<span class="checkmark"></span></label>
+    </div>
+    <div ng-show="annual=2">123</div>>
+</body>
+
+<script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function($scope){
+           $scope.choice=$scope.annual;
+        });
+    </script>
+</html>
