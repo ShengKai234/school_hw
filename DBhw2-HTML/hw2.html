@@ -7,11 +7,13 @@
         border-collapse: collapse;
         width: 100%;
     }
-    td, th 
+    th, td 
     {
         border: 1px solid #dddddd;
-        text-align: left;
-        padding: 8px;
+        text-align: center;
+        padding: 6px;
+        text-align-last: center;
+        font-size: 12px;
     }
 </style>
 <head>
@@ -24,40 +26,50 @@
     <title>公 路 橋梁 耐 震 能 力 初 步 評 估 表</title>
     
 </head>
-<body>
-    <h1><center>表1  公 路 橋梁 耐 震 能 力 初 步 評 估 表 －（Ａ）落 橋 評 估</center></h1>
-</body>
 
-<body>
+<body style="width: 1064px; margin: auto;">
+    <h1><center>表1  公 路 橋梁 耐 震 能 力 初 步 評 估 表 －（Ａ）落 橋 評 估</center></h1>
     <form>
-        <div style="font-size:20px; word-spacing: 10px;">
-            <label>橋樑名稱: <input style="font-size:16px;" type="text" id="Name" name="Name" ng-model="Name"></label>
-            <label>&nbsp編號: <input style="font-size:16px;" type="text" id="Code" name="Code" ng-model="Code"></label>
-            <label>&nbsp振動單位: P<input style="font-size:16px;" type="text" id="Vibration_1" name="Vibration_1" ng-model="Vibration_1">
-                ~P<input style="font-size:16px;" type="text" id="Vibration_2" name="Vibration_2" ng-model="Vibration_2">
+        <div style="font-size:14px; word-spacing: 10px;">
+            <label>橋樑名稱: <input type="text" id="BridgeName" name="BridgeName" ng-model="BridgeName"></label>
+            <label>&nbsp編號: <input type="text" id="BridgeCode" name="BridgeCode" ng-model="BridgeCode"></label>
+            <label>&nbsp振動單位: P<input type="text" id="Vibration_low" name="Vibration_low" ng-model="Vibration_low">
+                ~P<input type="text" id="Vibration_up" name="Vibration_up" ng-model="Vibration_up">
             </label>
         </div>
-        <div style="font-size:16px;">
+        <div style="font-size:14px;">
             <label>設計年度 : </label>
             <input type="radio" id="49bef" name="annual" ng-model="annual" value="民國49年以前">民國49年以前
-            <input type="radio" id="49_76" name="annual" value="民國49~76年">民國49~76年
-            <input type="radio" id="76_84" name="annual" value="民國76~84年">民國76~84年
-            <input type="radio" id="84_89" name="annual" value="民國84~89年">民國84~89年
-            <input type="radio" id="89aft" name="annual" value="民國89年以後">民國89年以後
+            <input type="radio" id="49_76" name="annual" ng-model="annual" value="民國49~76年">民國49~76年
+            <input type="radio" id="76_84" name="annual" ng-model="annual" value="民國76~84年">民國76~84年
+            <input type="radio" id="84_89" name="annual" ng-model="annual" value="民國84~89年">民國84~89年
+            <input type="radio" id="89aft" name="annual" ng-model="annual" value="民國89年以後">民國89年以後
         </div>
         <table align="center">
             <tr>
-                <th width="5%"></th>
+                <th width="10%"></th>
                 <th width="10%">項目</th>
                 <th width="5%">配分</th>
-                <th width="60%">評估內容</th>
+                <th width="55%">評估內容</th>
                 <th width="10%">權重(W)</th>
                 <th width="10%">評分</th>
             </tr>
             <tr>
-                <td>2-1</td>
-                <td>2-2</td>
+                <td rowspan="3">工址環境</td>
+                <td>震區係數</td>
+                <td>15</td>
+                <td>W=(Z-Z<sub>0</sub>)/Z<sub>0</sub> ≦ 1.0; &nbsp&nbsp Z：現行規範之工址水平加速度係數; &nbsp&nbsp Z<sub>0</sub>：設計之工址等值水平加速度係數</td>
+                <td><input type="text" style="width:50px" id="w_earthqurk" name="w_earthqurk" ng-model="w_earthqurk"></td>
+                <td><input type="text" style="width:50px" id="g_earthqurk" name="g_earthqurk" ng-model="g_earthqurk"></td>
+                <tr>
+                    <td>液化潛能</td>
+                    <td>8</td>
+                </tr>
+                <tr><td>基礎裸露深度</td></tr>
             </tr>
+        
+            
+            
         </table>
     
     </form>
