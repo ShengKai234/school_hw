@@ -1,0 +1,377 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<style type="text/css">
+    
+    table 
+    {
+        font-family: arial, sans-serif;
+        border:1px solid black;
+        border-collapse: separate;
+        border-spacing: 10px;
+        width: 100%;
+    }
+
+    #table1
+    {
+        border-collapse: separate;
+        border-spacing: 1px;
+    }
+    
+    th, td 
+    {
+        border: 1px solid black;
+        border-spacing: 10px;
+        text-align: center;
+        padding: 6px;
+        text-align-last: center;
+        font-size: 12px;
+    }
+
+    #td-left
+    {
+        text-align-last: left;
+    }
+
+</style>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://cdn.bootcss.com/angular.js/1.4.6/angular.min.js"></script> 
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>公 路 橋梁 耐 震 能 力 初 步 評 估 表</title>
+    
+</head>
+
+<body style="width: 1064px; margin: auto;" >
+    <h1><center>表1  公 路 橋梁 耐 震 能 力 初 步 評 估 表 －（Ａ）落 橋 評 估</center></h1>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <form>
+            <div style="font-size:14px; word-spacing: 10px;">
+                <label>橋樑名稱: <input type="text" id="BridgeName" name="BridgeName" ng-model="BridgeName"></label>
+                <label>&nbsp編號: <input type="text" id="BridgeCode" name="BridgeCode" ng-model="BridgeCode"></label>
+                <label>&nbsp振動單位: P<input type="text" id="Vibration_low" name="Vibration_low" ng-model="Vibration_low">
+                    ~P<input type="text" id="Vibration_up" name="Vibration_up" ng-model="Vibration_up">
+                </label>
+            </div>
+            
+            <div style="font-size:14px;">
+                <label>設計年度 : </label>
+                <input type="radio" id="49bef" name="annual" ng-model="annual" onclick="myFunction(this)" value="民國49年以前">民國49年以前
+                <input type="radio" id="49_76" name="annual" ng-model="annual" onclick="myFunction(this)" value="民國49~76年">民國49~76年
+                <input type="radio" id="76_84" name="annual" ng-model="annual" value="民國76~84年">民國76~84年
+                <input type="radio" id="84_89" name="annual" ng-model="annual" value="民國84~89年">民國84~89年
+                <input type="radio" id="89aft" name="annual" ng-model="annual" value="民國89年以後">民國89年以後
+            </div>
+            <table id="table1">
+                <tr>
+                    <th width="100px"></th>
+                    <th width="100px">項目</th>
+                    <th width="50px">配分</th>
+                    <th width="200px" colspan="4" style="letter-spacing: 30px;">評估內容</th>
+                    <th width="100px">權重(W)</th>
+                    <th width="100px">評分</th>
+                </tr>
+                <tr>
+                    <td rowspan="3">工址環境</td>
+                    <td>震區係數</td>
+                    <td>15</td>
+                    <td id="td-left" colspan="4">W=(Z-Z<sub>0</sub>)/Z<sub>0</sub> ≦ 1.0; &nbsp&nbsp Z：現行規範之工址水平加速度係數; &nbsp&nbsp Z<sub>0</sub>：設計之工址等值水平加速度係數</td>
+                    <td><input type="text" style="width:50px" id="w_earthqurk" name="w_earthqurk" ng-model="w_earthqurk" ng-change="envir_earthqurk()" onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')" ></td>
+                    <td><input type="text" style="width:50px" id="g_earthqurk" name="g_earthqurk" ng-model="g_earthqurk"></td>
+                    <tr>
+                        <td>液化潛能</td>
+                        <td>8</td>
+                        <td id="td-left" colspan="4">
+                            <input type="radio" id="lique" name="lique" ng-model="lique" value="1.0" ng-change="envir_lique()">橋址位於液化區(1.0);
+                            <input type="radio" id="lique" name="lique" ng-model="lique" value="0.5" ng-change="envir_lique()">砂質土層(0.5);
+                            <input type="radio" id="lique" name="lique" ng-model="lique" value="0" ng-change="envir_lique()">無(0);    
+                        </td>
+                        <td><input type="text" style="width:50px" id="w_lique" name="w_lique" ng-model="lique" onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')" ></td>
+                        <td><input type="text" style="width:50px" id="g_lique" name="g_lique" ng-model="g_lique"></td>
+                    </tr>
+                    <tr>
+                        <td>基礎裸露深度</td>
+                        <td>8</td>
+                        <td id="td-left" colspan="4">
+                            <input type="radio" id="deep" name="deep" ng-model="deep" value="1.0" ng-change="envir_deep()">基樁裸露或R≧2.0，(W=1.0); 
+                            <input type="radio" id="deep" name="deep" ng-model="deep" value="0.5" ng-change="envir_deep()">1.0≦R < 2.0，(W=R-1);
+                            <input type="radio" id="deep" name="deep" ng-model="deep" value="0" ng-change="envir_deep()">R < 1.0，(W=0);
+                            <br>
+                            <label>R=基礎裸露深度(m)/1.2m   或   R=基礎裸露深度(m)/基礎版厚度 (m)</label>
+                        </td>
+                        <td><input type="text" style="width:50px" id="w_deep" name="w_deep" ng-model="deep" onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')" ></td>
+                        <td><input type="text" style="width:50px" id="g_deep" name="g_deep" ng-model="g_deep"></td>
+                    </tr>
+                </tr>
+                <tr>
+                    <td rowspan="6">結構系統</td>
+                    <td>外懸鉸接</td>
+                    <td>5</td>
+                    <td id="td-left" colspan="4">
+                        <input type="radio" id="hinge" name="hinge" ng-model="hinge" value="1.0" ng-change="sys_hinge()">有(1.0);
+                        <input type="radio" id="hinge" name="hinge" ng-model="hinge" value="0" ng-change="sys_hinge()">無(0);    
+                    </td>
+                    <td><input type="text" style="width:50px" id="w_hinge" name="w_hinge" ng-model="hinge" onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')" ></td>
+                    <td><input type="text" style="width:50px" id="g_hinge" name="g_hinge" ng-model="g_hinge"></td>
+                    <tr>
+                        <td>橋柱高度</td>
+                        <td>4</td>
+                        <td id="td-left" colspan="4">H < 15, W=H / 15;  H≧15 , W=1.0 ;   H: 橋柱高度 (m)</td>
+                        <td><input type="text" style="width:50px" id="w_height" name="w_height" ng-model="w_height" ng-change="sys_height()" onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')" ></td>
+                        <td><input type="text" style="width:50px" id="g_height" name="g_height" ng-model="g_height"></td>
+                    </tr>
+                    <tr>
+                        <td>斜交角度 </td>
+                        <td>4</td>
+                        <td id="td-left" colspan="4">W=θo / 45o ≦1.0;   θo :斜交角度</td>
+                        <td><input type="text" style="width:50px" id="w_angle" name="w_angle" ng-model="w_angle" ng-change="sys_angle()" onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')" ></td>
+                        <td><input type="text" style="width:50px" id="g_angle" name="g_angle" ng-model="g_angle"></td>
+                    </tr>
+                    <tr>
+                        <td>縱坡坡度</td>
+                        <td>4</td>
+                        <td id="td-left" colspan="4">W=縱坡坡度/ 6% ≦ 1.0</td>
+                        <td><input type="text" style="width:50px" id="w_slope" name="w_slope" ng-model="w_slope" ng-change="sys_slope()" onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')" ></td>
+                        <td><input type="text" style="width:50px" id="g_slope" name="g_slope" ng-model="g_slope"></td>
+                    </tr>
+                    <tr>
+                        <td>基礎型式</td>
+                        <td>4</td>
+                        <td id="td-left" colspan="4">
+                            <input type="radio" id="type" name="type" ng-model="type" value="1.0" ng-change="sys_type()">具直接基礎 (1.0); 
+                            <input type="radio" id="type" name="type" ng-model="type" value="0.5" ng-change="sys_type()">具樁基礎 (0.5);
+                            <input type="radio" id="type" name="type" ng-model="type" value="0" ng-change="sys_type()">沉箱基礎 (0);
+                        </td>
+                        <td><input type="text" style="width:50px" id="w_type" name="w_type" ng-model="type" onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')" ></td>
+                        <td><input type="text" style="width:50px" id="g_type" name="g_type" ng-model="g_type"></td>
+                    </tr>
+                    <tr>
+                        <td>其它異常現象</td>
+                        <td>8</td>
+                        <td id="td-left" colspan="4">橋柱垂直度、支承狀況、支承座至支承混凝土面之異常狀況等</td>
+                        <td><input type="text" style="width:50px" id="w_other" name="w_other" ng-model="w_other" ng-change="sys_other()" onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')" ></td>
+                        <td><input type="text" style="width:50px" id="g_other" name="g_other" ng-model="g_other"></td>
+                    </tr>
+                </tr>
+                <tr>
+                    <td rowspan="3">結構細部</td>
+                    <tr>
+                    <td>防落裝置</td>
+                    <td>15</td>
+                    <td id="td-left" colspan="4">
+                        <input type="radio" id="device" name="device" ng-model="device" value="1.0" ng-change="detail_device()">兩向均無裝置(1.0);
+                        <input type="radio" id="device" name="device" ng-model="device" value="0.5" ng-change="detail_device()">僅垂直車行向有裝置(0.5);
+                        <input type="radio" id="device" name="device" ng-model="device" value="0.3" ng-change="detail_device()">僅車行向有裝置(0.3); 
+                        <input type="radio" id="device" name="device" ng-model="device" value="0" ng-change="detail_device()">兩向皆有裝置(0);     
+                    </td>
+                    <td><input type="text" style="width:50px" id="w_device" name="w_device" ng-model="device" onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')" ></td>
+                    <td><input type="text" style="width:50px" id="g_device" name="g_device" ng-model="g_device"></td>
+                    <tr>
+                        <td>防落長度 Ne</td>
+                        <td>25</td>
+                        <td id="td-left" colspan="4">Ne≦N/2 W=1.0; N/2<Ne≦N , W=(N-Ne)/(N/2)≦1.0, Ne>N, W=0; N：規範規定防落長度; Ne：實際防落長度</td>
+                        <td><input type="text" style="width:50px" id="w_length" name="w_length" ng-model="w_length" ng-change="detail_length()" onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')" ></td>
+                        <td><input type="text" style="width:50px" id="g_length" name="g_length" ng-model="g_length"></td>
+                    </tr>
+                </tr>
+                <tr>
+                    <td colspan="2">小計</td>
+                    <td >100</td>
+                    <td colspan="4"></td>
+                    <td >總計</td>
+                    <td><input type="text" style="width:50px" id="all_score" name="all_score" ng-model="all_score"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">評估者</td>
+                    <td colspan="3" width="400px"><input type="text" style="width:300px" id="signName" name="signName" ng-model="signName"></td>
+                    <td colspan="1" width="200px">評估日期</td>
+                    <td colspan="3" width="500px">
+                        <label>西元</label>
+                        <select>
+                            <option value=""></option>
+                            <option value="107">107</option>
+                            <option value="108">108</option>
+                            <option value="109">109</option>
+                        </select>
+                        <label>年</label>
+                        <select>
+                            <option value=""></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>
+                        <label>月</label>
+                        <select>
+                            <option value=""></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                        <label>日</label>
+                    </td>
+                </tr>
+            </table>
+            <label>註：</label>
+            <ul style="list-style-type:decimal;">
+                <li>評分=配分×權重；其中權重可為各項目經計算所得之數值W或括弧中之數值。</li>
+                <li>評定標準為：</li>
+                <ul style="list-style-type:lower-alpha;">
+                    <li>得分大於60分，安全有疑慮，應立即進行安全詳細檢測及評估。</li>
+                    <li>得分大於30分至等於60分間，安全略有疑慮，近期應進行詳細安全檢測及評估。</li>
+                    <li>得分小於等於30分，安全無疑慮，但須繼續進行例行性檢測維護。</li>
+                </ul>
+                <li>若基椿裸露則安全有疑慮應立即進行耐震安全詳細檢測及評估。</li>
+            </ul>
+            <div style='text-align:center'>
+                <button ng-click="submit()">送出</button>
+                <button>重設</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope){
+        //初始值
+        
+        $scope.envir_earthqurk = function(){
+            
+            $scope.g_earthqurk =  $scope.w_earthqurk * 15;
+            $scope.calculate_all();
+        }
+
+        $scope.envir_lique = function(){
+            $scope.g_lique = $scope.lique * 8;
+            $scope.calculate_all();        
+        }
+
+        $scope.envir_deep = function(){
+            $scope.g_deep = $scope.deep * 8;
+            $scope.calculate_all();        
+        }
+
+        $scope.sys_hinge = function(){
+            $scope.g_hinge = $scope.hinge * 5;
+            $scope.calculate_all();        
+        }
+
+        $scope.sys_height = function(){
+            $scope.g_height = $scope.w_height * 4;
+            $scope.calculate_all();
+        }
+
+        $scope.sys_angle = function(){
+            $scope.g_angle = $scope.w_angle * 4;
+            $scope.calculate_all();
+        }
+
+        $scope.sys_slope = function(){
+            $scope.g_slope = $scope.w_slope * 4;
+            $scope.calculate_all();
+        }
+
+        $scope.sys_type = function(){
+            $scope.g_type = $scope.type * 4;
+            $scope.calculate_all();
+        }
+
+        $scope.sys_other = function(){
+            $scope.g_other = $scope.w_other * 8;
+            $scope.calculate_all();
+        }
+
+        $scope.detail_device = function(){
+            $scope.g_device = $scope.device * 15;
+            $scope.calculate_all();
+        }
+
+        $scope.detail_length = function(){
+            $scope.g_length = $scope.w_length * 25;
+            $scope.calculate_all();
+        }
+        
+        $scope.calculate_all = function() {
+            $scope.all_score = 0;
+            var scores = [$scope.g_earthqurk, $scope.g_lique, $scope.g_deep, $scope.g_hinge, $scope.g_height, $scope.g_angle, $scope.g_slope, $scope.g_type, $scope.g_other, $scope.g_device, $scope.g_length]
+            angular.forEach(scores, function(score) {
+                if (angular.isNumber(score) == true){
+                    $scope.all_score += score;
+                    console.log(score)
+                }
+            });
+                
+            
+        }
+
+
+
+
+
+        $scope.submit = function(){
+            var keepGoing = true;
+            var scores = [$scope.w_earthqurk,
+                        $scope.lique, 
+                        $scope.deep, 
+                        $scope.hinge, 
+                        $scope.w_height, 
+                        $scope.w_angle, 
+                        $scope.w_slope, 
+                        $scope.type, 
+                        $scope.w_other, 
+                        $scope.device, 
+                        $scope.w_length]
+            var inputs = [$scope.g_earthqurk,
+                        $scope.g_lique, 
+                        $scope.g_deep, 
+                        $scope.g_hinge, 
+                        $scope.g_height, 
+                        $scope.g_angle, 
+                        $scope.g_slope, 
+                        $scope.g_type, 
+                        $scope.g_other, 
+                        $scope.g_device, 
+                        $scope.g_length, 
+                        $scope.BridgeName, 
+                        $scope.BridgeCode, 
+                        $scope.Vibration_low, 
+                        $scope.Vibration_up, 
+                        $scope.annual, 
+                        $scope.signName]
+
+            angular.forEach(scores, function(score) {
+                if(keepGoing){
+                    if (score>1 || score<0){
+                        alert("資料輸入不符，請重新輸入");
+                        keepGoing = false
+                        console.log(score)
+                    }
+                }
+            });
+            angular.forEach(inputs, function(input) {
+                if(keepGoing){
+                    if (input==undefined||input==""){
+                        alert("資料輸入不完整，無法送出");
+                        keepGoing = false
+                    }
+                }
+            });
+            if(keepGoing){
+                alert("寄出成功，下班拉！！！");
+            }
+        }
+    });
+</script>
+
+</html>
